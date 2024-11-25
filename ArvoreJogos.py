@@ -36,7 +36,7 @@ class ArvoreJogos:
         if atual is None:
             return []
         if atual.getJogo().getPreco() == preco:
-            return self.__procuraIguais(atual.getEsquerda(), preco) + [atual.getJogo()] + self.__procuraIguais(atual.getEsquerda(), preco)
+            return self.__procuraIguais(atual.getEsquerda(), preco) + [atual.getJogo()] + self.__procuraIguais(atual.getDireita(), preco)
         else:
             return []
 
