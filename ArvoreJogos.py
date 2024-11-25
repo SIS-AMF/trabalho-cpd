@@ -3,20 +3,21 @@ from Jogo import Jogo
 
 
 class ArvoreJogos:
-    __raiz: Jogo
+    """Árvore binária de busca para armazenar jogos, ordenados por preço."""
+
+    __raiz: NoJogo
 
     def __init__(self):
         self.__raiz = None
 
-    def inserir(self, jogo: Jogo):
-        '''Inserir um jogo na árvore'''
+    def inserir(self, jogo: Jogo) -> None:
         novo_no = NoJogo(jogo)
         if self.__raiz is None:
             self.__raiz = novo_no
         else:
             self.__inserir_recursivo(self.__raiz, novo_no)
 
-    def __inserir_recursivo(self, atual: NoJogo, novo_no: NoJogo):
+    def __inserir_recursivo(self, atual: NoJogo, novo_no: NoJogo) -> None:
         if novo_no.getJogo().getPreco() < atual.getJogo().getPreco():
             if atual.getEsquerda() is None:
                 atual.setEsquerda(novo_no)
@@ -28,11 +29,10 @@ class ArvoreJogos:
             else:
                 self.__inserir_recursivo(atual.getDireita(), novo_no)
 
-    def buscarPorPreco(self, preco: int):
-        '''Buscar jogos por preço exato'''
+    def buscarPorPreco(self, preco: float) -> list[Jogo]:
         return self.__buscar_recursivo(self.__raiz, preco)
 
-    def __buscar_recursivo(self, atual: NoJogo, preco: int):
+    def __buscar_recursivo(self, atual: NoJogo, preco: float) -> list[Jogo]:
         if atual is None:
             return []
         if atual.getJogo().getPreco() == preco:
@@ -42,13 +42,12 @@ class ArvoreJogos:
         else:
             return self.__buscar_recursivo(atual.getDireita(), preco)
 
-    def buscarPorFaixaPreco(self, preco_minimo: int, preco_maximo: int):
-        '''Buscar jogos por faixa de preço'''
+    def buscarPorFaixaPreco(self, minimo: float, maximo: float) -> list[Jogo]:
         resultado = []
-        self.__buscar_faixa(self.__raiz, preco_minimo, preco_maximo, resultado)
+        self.__buscar_faixa(self.__raiz, minimo, maximo, resultado)
         return resultado
 
-    def __buscar_faixa(self, atual: NoJogo, minimo: int, maximo: int, resultado: list[Jogo]):
+    def __buscar_faixa(self, atual: NoJogo, minimo: float, maximo: float, resultado: list[Jogo]) -> None:
         if atual is None:
             return
         if minimo <= atual.getJogo().getPreco() <= maximo:

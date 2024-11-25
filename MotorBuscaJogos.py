@@ -4,6 +4,8 @@ from Jogo import Jogo
 
 
 class MotorBuscaJogos:
+    """Motor de busca que combina árvores e hash tables para manipular jogos."""
+
     __catalogo_jogos: ArvoreJogos
     __generos: HashGeneros
 
@@ -11,15 +13,15 @@ class MotorBuscaJogos:
         self.__catalogo_jogos = ArvoreJogos()
         self.__generos = HashGeneros()
 
-    def adicionarJogo(self, jogo: Jogo):
+    def adicionarJogo(self, jogo: Jogo) -> None:
         self.__catalogo_jogos.inserir(jogo)
         self.__generos.adicionarJogo(jogo)
 
-    def buscarPorPreco(self, preco: int):
+    def buscarPorPreco(self, preco: float) -> list[Jogo]:
         return self.__catalogo_jogos.buscarPorPreco(preco)
 
-    def buscarPorFaixaPreco(self, minimo: int, maximo: int):
+    def buscarPorFaixaPreco(self, minimo: float, maximo: float) -> list[Jogo]:
         return self.__catalogo_jogos.buscarPorFaixaPreco(minimo, maximo)
 
-    def buscarPorGenero(self, genero: str):
+    def buscarPorGenero(self, genero: str) -> list[Jogo]:
         return self.__generos.obterJogos(genero)

@@ -2,9 +2,11 @@ from Jogo import Jogo
 
 
 class NoJogo:
+    """Representa um nó da árvore binária de jogos."""
+
     __jogo: Jogo
-    __esquerda: float
-    __direita: float
+    __esquerda: "NoJogo"
+    __direita: "NoJogo"
 
     def __init__(self, jogo: Jogo):
         self.__jogo = jogo
@@ -12,20 +14,18 @@ class NoJogo:
         self.__direita = None
 
     # Getters
-
-    def getJogo(self):
+    def getJogo(self) -> Jogo:
         return self.__jogo
 
-    def getEsquerda(self):
+    def getEsquerda(self) -> "NoJogo":
         return self.__esquerda
 
-    def getDireita(self):
+    def getDireita(self) -> "NoJogo":
         return self.__direita
 
     # Setters
-
-    def setDireita(self, direita: float):
-        self.__direita = direita
-
-    def setEsquerda(self, esquerda: float):
+    def setEsquerda(self, esquerda: "NoJogo") -> None:
         self.__esquerda = esquerda
+
+    def setDireita(self, direita: "NoJogo") -> None:
+        self.__direita = direita
