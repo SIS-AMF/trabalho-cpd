@@ -11,11 +11,11 @@ class MotorBuscaJogos:
 
     def __init__(self):
         self.__catalogo_jogos = ArvoreJogos()
-        self.__generos = HashGeneros()
+        self.__generos = HashGeneros(10)
 
     def adicionarJogo(self, jogo: Jogo) -> None:
         self.__catalogo_jogos.inserir(jogo)
-        self.__generos.adicionarJogo(jogo)
+        self.__generos.adicionarJogoHash(jogo)
 
     def buscarPorPreco(self, preco: float) -> list[Jogo]:
         return self.__catalogo_jogos.buscarPorPreco(preco)
@@ -24,4 +24,7 @@ class MotorBuscaJogos:
         return self.__catalogo_jogos.buscarPorFaixaPreco(minimo, maximo)
 
     def buscarPorGenero(self, genero: str) -> list[Jogo]:
-        return self.__generos.obterJogos(genero)
+        return self.__generos.obterJogosHash(genero)
+    
+    def getCatalogoEmOrdem(self):
+        return self.__catalogo_jogos.preOrder()

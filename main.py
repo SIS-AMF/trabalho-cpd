@@ -29,3 +29,8 @@ if __name__ == "__main__":
 
     print("\nJogos do gênero 'RPG':")
     print(loja.buscarPorGenero("RPG"))
+
+    print("--------------------------")
+    for x in loja.getCatalogoEmOrdem():
+        print()
+        print(x)

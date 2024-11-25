@@ -32,11 +32,19 @@ class ArvoreJogos:
     def buscarPorPreco(self, preco: float) -> list[Jogo]:
         return self.__buscar_recursivo(self.__raiz, preco)
 
+    def __procuraIguais(self, atual: NoJogo, preco: float):
+        if atual is None:
+            return []
+        if atual.getJogo().getPreco() == preco:
+            return self.__procuraIguais(atual.getEsquerda(), preco) + [atual.getJogo()] + self.__procuraIguais(atual.getEsquerda(), preco)
+        else:
+            return []
+
     def __buscar_recursivo(self, atual: NoJogo, preco: float) -> list[Jogo]:
         if atual is None:
             return []
         if atual.getJogo().getPreco() == preco:
-            return [atual.getJogo()]
+            return self.__procuraIguais(atual, preco)
         elif preco < atual.getJogo().getPreco():
             return self.__buscar_recursivo(atual.getEsquerda(), preco)
         else:
@@ -56,3 +64,12 @@ class ArvoreJogos:
             self.__buscar_faixa(atual.getEsquerda(), minimo, maximo, resultado)
         if atual.getJogo().getPreco() < maximo:
             self.__buscar_faixa(atual.getDireita(), minimo, maximo, resultado)
+
+    def preOrder(self):
+        return self.__preOrder(self.__raiz)
+
+    def __preOrder(self, no: NoJogo):
+        if no is None:
+            return []
+        else:
+            return self.__preOrder(no.getEsquerda()) + [no.getJogo()] + self.__preOrder(no.getDireita())
