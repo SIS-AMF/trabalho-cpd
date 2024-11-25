@@ -29,7 +29,6 @@ class HashGeneros:
         hash = self.hash(genero)
         return self.__table2.get(hash, [])
 
-
     def adicionarJogo(self, jogo: Jogo) -> None:
         for genero in jogo.getGeneros():
             if genero not in self.__table:
@@ -38,4 +37,3 @@ class HashGeneros:
 
     def obterJogos(self, genero: str) -> list[Jogo]:
         return self.__table.get(genero, [])
-    

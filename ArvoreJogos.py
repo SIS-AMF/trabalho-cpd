@@ -51,24 +51,20 @@ class ArvoreJogos:
             return self.__buscar_recursivo(atual.getDireita(), preco)
 
     def buscarPorFaixaPreco(self, minimo: float, maximo: float) -> list[Jogo]:
-        resultado = []
-        self.__buscar_faixa(self.__raiz, minimo, maximo, resultado)
-        return resultado
+        return self.__buscar_faixa(self.__raiz, minimo, maximo)
 
-    def __buscar_faixa(self, atual: NoJogo, minimo: float, maximo: float, resultado: list[Jogo]) -> None:
+    def __buscar_faixa(self, atual: NoJogo, minimo: float, maximo: float) -> None:
         if atual is None:
-            return
-        if minimo <= atual.getJogo().getPreco() <= maximo:
-            resultado.append(atual.getJogo())
-        if minimo < atual.getJogo().getPreco():
-            self.__buscar_faixa(atual.getEsquerda(), minimo, maximo, resultado)
-        if atual.getJogo().getPreco() < maximo:
-            self.__buscar_faixa(atual.getDireita(), minimo, maximo, resultado)
+            return []
+        if atual.getJogo().getPreco() >= minimo and atual.getJogo().getPreco() <= maximo:
+            return self.__buscar_faixa(atual.getEsquerda(), minimo, maximo) + [atual.getJogo()] + self.__buscar_faixa(atual.getDireita(), minimo, maximo)
+        else:
+            return []
 
-    def preOrder(self):
+    def preOrder(self) -> list[Jogo]:
         return self.__preOrder(self.__raiz)
 
-    def __preOrder(self, no: NoJogo):
+    def __preOrder(self, no: NoJogo) -> list[Jogo]:
         if no is None:
             return []
         else:
