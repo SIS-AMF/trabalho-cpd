@@ -17,6 +17,8 @@ if __name__ == "__main__":
     loja.adicionarJogo(jogo4)
     loja.adicionarJogo(jogo5)
 
+    # loja.balancearArvore()
+
     # Buscas
     print("Jogos com preço exato de 75:")
     print(loja.buscarPorPreco(75))

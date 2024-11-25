@@ -61,11 +61,23 @@ class ArvoreJogos:
         else:
             return []
 
-    def preOrder(self) -> list[Jogo]:
-        return self.__preOrder(self.__raiz)
+    def inOrder(self) -> list[Jogo]:
+        return self.__inOrder(self.__raiz)
 
-    def __preOrder(self, no: NoJogo) -> list[Jogo]:
+    def __inOrder(self, no: NoJogo) -> list[Jogo]:
         if no is None:
             return []
         else:
-            return self.__preOrder(no.getEsquerda()) + [no.getJogo()] + self.__preOrder(no.getDireita())
+            return self.__inOrder(no.getEsquerda()) + [no.getJogo()] + self.__inOrder(no.getDireita())
+
+    def balancear(self):
+        lista_ordenada = self.inOrder()
+        self.__raiz = None
+        self.__balancear(lista_ordenada)
+
+    def __balancear(self, lista_ordenada) -> list[Jogo]:
+        if len(lista_ordenada) > 0:
+            meio = len(lista_ordenada) // 2
+            self.inserir(lista_ordenada[meio])
+            self.__balancear(lista_ordenada[meio + 1:])
+            self.__balancear(lista_ordenada[:meio])

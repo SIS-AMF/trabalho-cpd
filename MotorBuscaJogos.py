@@ -25,6 +25,9 @@ class MotorBuscaJogos:
 
     def buscarPorGenero(self, genero: str) -> list[Jogo]:
         return self.__generos.obterJogosHash(genero)
-    
+
     def getCatalogoEmOrdem(self):
-        return self.__catalogo_jogos.preOrder()
+        return self.__catalogo_jogos.inOrder()
+
+    def balancearArvore(self):
+        return self.__catalogo_jogos.balancear()
